@@ -31,7 +31,7 @@ public class Funcionario {
 
     }
 
-    public Funcionario(Long id, String nome, String cpf, String endereco, Date dataNascimento, String emailPessoal, String emailWorkspace, String telefone) {
+    public Funcionario(Long id, String nome, String cpf, String endereco, Date dataNascimento, String emailPessoal, String emailWorkspace, String telefone, Setor setor) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -40,6 +40,7 @@ public class Funcionario {
         this.emailPessoal = emailPessoal;
         this.emailWorkspace = emailWorkspace;
         this.telefone = telefone;
+        this.setor = setor;
     }
 
     @Override
@@ -116,5 +117,13 @@ public class Funcionario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
     }
 }
