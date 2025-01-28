@@ -13,9 +13,16 @@ public class Equipamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "patrimonio")
     private Integer patrimonio;
+
+    @Column(name = "tipo")
     private String tipo; // Computador, Monitor, Nobreak, Suporte
+
+    @Column(name = "modelo")
     private String modelo;
+
+    @Column(name = "descricao")
     private String descricao; // Caso precise fazer alguma observação (Ex: sem número do patrimonio do monitor)
 
     @ManyToOne
