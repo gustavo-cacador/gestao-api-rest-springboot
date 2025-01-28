@@ -23,6 +23,10 @@ public class Funcionario {
     private String emailWorkspace;
     private String telefone;
 
+    @ManyToOne
+    @JoinColumn(name = "setor_id")
+    private Setor setor;
+
     public Funcionario() {
 
     }
