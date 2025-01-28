@@ -13,11 +13,10 @@ public class Setor {
     private Long id;
 
     private String nome;
+    private String descricao;
 
     @OneToMany(mappedBy = "setor")
     private List<Funcionario> funcionarios;
-
-    private String descricao;
 
     public Setor() {
 
