@@ -13,14 +13,25 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome_completo")
+    @Column(name = "nome")
     private String nome;
 
+    @Column(name = "cpf")
     private String cpf;
+
+    @Column(name = "endereco")
     private String endereco;
+
+    @Column(name = "data_nascimento")
     private Date dataNascimento;
+
+    @Column(name = "email_pessoal")
     private String emailPessoal;
+
+    @Column(name = "email_trabalho")
     private String emailWorkspace;
+
+    @Column(name = "telefone")
     private String telefone;
 
     @ManyToOne
