@@ -1,13 +1,14 @@
 package com.gustavo.gestao_api_rest.dto;
 
 import com.gustavo.gestao_api_rest.entities.Funcionario;
+import com.gustavo.gestao_api_rest.entities.Setor;
 
 public class FuncionarioDTO {
 
     private Long id;
     private String nome;
     private String emailWorkspace;
-    private String setor;
+    private Setor setor;
 
     public FuncionarioDTO() {
 
@@ -17,7 +18,9 @@ public class FuncionarioDTO {
         id = entity.getId();
         nome = entity.getNome();
         emailWorkspace = entity.getEmailWorkspace();
-        setor = entity.getSetor() != null ? entity.getSetor().getNome() : null; // verifica se o funcionário tem um setor associado, se não tiver retorna nulo
+        setor = entity.getSetor();
+       // setor = entity.getSetor() != null ? entity.getSetor() : null; // verifica se o funcionário tem um setor associado, se não tiver retorna nulo
+
     }
 
     public Long getId() {
@@ -32,7 +35,9 @@ public class FuncionarioDTO {
         return emailWorkspace;
     }
 
-    public String getSetor() {
+    public Setor getSetor() {
         return setor;
     }
+
 }
+
