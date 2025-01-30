@@ -43,12 +43,6 @@ public class Funcionario {
 
     }
 
-    public Funcionario(FuncionarioDTO dto) {
-        this.id = id;
-        this.nome = nome;
-        this.emailWorkspace = emailWorkspace;
-        this.setor = setor;
-    }
     public Funcionario(Long id, String nome, String cpf, String endereco, Date dataNascimento, String emailPessoal, String emailWorkspace, String telefone, Setor setor) {
         this.id = id;
         this.nome = nome;
