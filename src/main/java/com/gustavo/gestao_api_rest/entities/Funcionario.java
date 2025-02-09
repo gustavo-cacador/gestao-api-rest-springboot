@@ -3,8 +3,7 @@ package com.gustavo.gestao_api_rest.entities;
 import com.gustavo.gestao_api_rest.dto.FuncionarioDTO;
 import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_funcionario")
@@ -14,30 +13,26 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
     private String nome;
-
-    @Column(name = "cpf")
     private String cpf;
-
-    @Column(name = "endereco")
     private String endereco;
-
-    @Column(name = "data_nascimento")
     private Date dataNascimento;
-
-    @Column(name = "email_pessoal")
     private String emailPessoal;
-
-    @Column(name = "email_trabalho")
     private String emailWorkspace;
-
-    @Column(name = "telefone")
     private String telefone;
 
     @ManyToOne
     @JoinColumn(name = "setor_id")
     private Setor setor;
+
+    @OneToMany(mappedBy = "funcionario")
+    private List<Equipamento> equipamentos = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "tb_funcionario_demanda",
+    joinColumns = @JoinColumn(name = "funcionario_id"),
+    inverseJoinColumns = @JoinColumn(name = "demanda_id"))
+    private Set<Demanda> demandas = new HashSet<>();
 
     public Funcionario() {
 

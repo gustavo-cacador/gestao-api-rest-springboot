@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_demanda")
@@ -13,43 +15,25 @@ public class Demanda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "pendencia")
     private String pendencia; // Descrever a demanda que vai realizar
-
-    @Column(name = "situacao")
     private String situacao; // Concluido, Em andamento, Aberto
-
-    @Column(name = "servico")
     private String servico; // Serviço prestado por qual setor
-
-    @Column(name = "data_abertura")
     private Date dataAbertura; // Dia em que começou a fazer a task
-
-    @Column(name = "nivel")
     private Integer nivel; // nivel 1 = 1 dia, nivel 7 = 7 dias, nivel 30 = 30 dias
-
-    @Column(name = "prazo")
     private Date prazo; // prazo depende do nivel da task
-
-    @Column(name = "canal")
     private String canal; // Email, Whatsapp, Remoto, Presencial, Interno
 
     //private String solicitante; // Nome do funcionario que solicitou a task (pode ser um chef)
     //private String emailSolicitante; // Email do funcionario que solicitou a task
 
-    @ManyToOne
-    @JoinColumn(name = "solicitante_id")
-    private Funcionario solicitante; // Funcionario que solicitou a demanda
-
-    @ManyToOne
-    @JoinColumn(name = "executor_id")
-    private Funcionario executor; // Funcionario que solicitou a demanda
+    @ManyToMany(mappedBy = "demandas")
+    private Set<Funcionario> funcionarios = new HashSet<>();
 
     public Demanda() {
 
     }
 
-    public Demanda(Long id, String pendencia, String situacao, String servico, Date dataAbertura, Integer nivel, Date prazo, String canal, Funcionario solicitante, Funcionario executor) {
+    public Demanda(Long id, String pendencia, String situacao, String servico, Date dataAbertura, Integer nivel, Date prazo, String canalr) {
         this.id = id;
         this.pendencia = pendencia;
         this.situacao = situacao;
@@ -58,8 +42,6 @@ public class Demanda {
         this.nivel = nivel;
         this.prazo = prazo;
         this.canal = canal;
-        this.solicitante = solicitante;
-        this.executor = executor;
     }
 
     public Long getId() {
@@ -144,20 +126,4 @@ public class Demanda {
     }
 
      */
-
-    public Funcionario getExecutor() {
-        return executor;
-    }
-
-    public void setExecutor(Funcionario executor) {
-        this.executor = executor;
-    }
-
-    public Funcionario getSolicitante() {
-        return solicitante;
-    }
-
-    public void setSolicitante(Funcionario solicitante) {
-        this.solicitante = solicitante;
-    }
     }

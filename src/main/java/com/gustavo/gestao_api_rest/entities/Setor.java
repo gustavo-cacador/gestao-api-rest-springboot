@@ -2,6 +2,7 @@ package com.gustavo.gestao_api_rest.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,14 +13,14 @@ public class Setor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
     private String nome;
-
-    @Column(name = "descricao")
     private String descricao;
 
     @OneToMany(mappedBy = "setor")
-    private List<Funcionario> funcionarios;
+    private List<Funcionario> funcionarios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "setor")
+    private List<Equipamento> equipamentos = new ArrayList<>();
 
     public Setor() {
 
