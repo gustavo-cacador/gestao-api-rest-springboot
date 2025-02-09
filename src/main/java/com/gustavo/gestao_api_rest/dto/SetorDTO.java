@@ -9,18 +9,21 @@ public class SetorDTO {
 
     private Long id;
     private String nome;
-    private List<FuncionarioDTO> funcionarios;
+    private String descricao;
 
     public SetorDTO() {
+    }
 
+    public SetorDTO(Long id, String nome, String descricao) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
     }
 
     public SetorDTO(Setor entity) {
         id = entity.getId();
         nome = entity.getNome();
-        funcionarios = entity.getFuncionarios().stream()
-                .map(funcionario -> new FuncionarioDTO(funcionario))
-                .collect(Collectors.toList());
+        descricao = entity.getDescricao();
     }
 
     public Long getId() {
@@ -31,7 +34,7 @@ public class SetorDTO {
         return nome;
     }
 
-    public List<FuncionarioDTO> getFuncionarios() {
-        return funcionarios;
+    public String getDescricao() {
+        return descricao;
     }
 }
