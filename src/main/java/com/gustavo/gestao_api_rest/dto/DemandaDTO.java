@@ -1,6 +1,8 @@
 package com.gustavo.gestao_api_rest.dto;
 
 import com.gustavo.gestao_api_rest.entities.Demanda;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 
 import java.util.Date;
@@ -9,11 +11,19 @@ public class DemandaDTO {
 
     private Long id;
 
+    @Size(min = 3, max = 200, message = "Pendência não pode ser vazia.")
+    @NotBlank(message = "A pendência é obrigatória.")
     private String pendencia;
+
+    @NotBlank(message = "O setor destinado ao serviço é obrigatório.")
     private String servico;
+
     private Date dataAbertura;
+
     private Integer nivel;
     private Date prazo;
+
+    @NotBlank(message = "O tipo de canal é obrigatório.")
     private String canal;
 
     public DemandaDTO() {
