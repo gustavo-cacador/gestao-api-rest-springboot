@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_setor")
@@ -14,6 +15,8 @@ public class Setor {
     private Long id;
 
     private String nome;
+
+    @Column(columnDefinition = "TEXT")
     private String descricao;
 
     @OneToMany(mappedBy = "setor")
@@ -26,11 +29,24 @@ public class Setor {
 
     }
 
-    public Setor(Long id, String nome, List<Funcionario> funcionarios, String descricao) {
+    public Setor(Long id, String nome, String descricao, List<Funcionario> funcionarios, List<Equipamento> equipamentos) {
         this.id = id;
         this.nome = nome;
-        this.funcionarios = funcionarios;
         this.descricao = descricao;
+        this.funcionarios = funcionarios;
+        this.equipamentos = equipamentos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Setor setor = (Setor) o;
+        return Objects.equals(id, setor.id) && Objects.equals(nome, setor.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome);
     }
 
     public Long getId() {
@@ -49,6 +65,14 @@ public class Setor {
         this.nome = nome;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public List<Funcionario> getFuncionarios() {
         return funcionarios;
     }
@@ -57,11 +81,11 @@ public class Setor {
         this.funcionarios = funcionarios;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public List<Equipamento> getEquipamentos() {
+        return equipamentos;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setEquipamentos(List<Equipamento> equipamentos) {
+        this.equipamentos = equipamentos;
     }
 }

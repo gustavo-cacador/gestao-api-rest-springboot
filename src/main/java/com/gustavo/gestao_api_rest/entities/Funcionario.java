@@ -17,8 +17,13 @@ public class Funcionario {
     private String cpf;
     private String endereco;
     private Date dataNascimento;
+
+    @Column(unique = true)
     private String emailPessoal;
+
+    @Column(unique = true)
     private String emailWorkspace;
+
     private String telefone;
 
     @ManyToOne
@@ -38,7 +43,7 @@ public class Funcionario {
 
     }
 
-    public Funcionario(Long id, String nome, String cpf, String endereco, Date dataNascimento, String emailPessoal, String emailWorkspace, String telefone, Setor setor) {
+    public Funcionario(Long id, String nome, String cpf, String endereco, Date dataNascimento, String emailPessoal, String emailWorkspace, String telefone, Setor setor, List<Equipamento> equipamentos, Set<Demanda> demandas) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -48,18 +53,20 @@ public class Funcionario {
         this.emailWorkspace = emailWorkspace;
         this.telefone = telefone;
         this.setor = setor;
+        this.equipamentos = equipamentos;
+        this.demandas = demandas;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Funcionario that = (Funcionario) o;
-        return Objects.equals(id, that.id) && Objects.equals(cpf, that.cpf);
+        return Objects.equals(id, that.id) && Objects.equals(cpf, that.cpf) && Objects.equals(emailPessoal, that.emailPessoal) && Objects.equals(emailWorkspace, that.emailWorkspace) && Objects.equals(telefone, that.telefone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cpf);
+        return Objects.hash(id, cpf, emailPessoal, emailWorkspace, telefone);
     }
 
     public Long getId() {
@@ -132,5 +139,21 @@ public class Funcionario {
 
     public void setSetor(Setor setor) {
         this.setor = setor;
+    }
+
+    public List<Equipamento> getEquipamentos() {
+        return equipamentos;
+    }
+
+    public void setEquipamentos(List<Equipamento> equipamentos) {
+        this.equipamentos = equipamentos;
+    }
+
+    public Set<Demanda> getDemandas() {
+        return demandas;
+    }
+
+    public void setDemandas(Set<Demanda> demandas) {
+        this.demandas = demandas;
     }
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -15,8 +16,9 @@ public class Demanda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String pendencia; // Descrever a demanda que vai realizar
-    private String situacao; // Concluido, Em andamento, Aberto
+
     private String servico; // Serviço prestado por qual setor
     private Date dataAbertura; // Dia em que começou a fazer a task
     private Integer nivel; // nivel 1 = 1 dia, nivel 7 = 7 dias, nivel 30 = 30 dias
@@ -33,15 +35,27 @@ public class Demanda {
 
     }
 
-    public Demanda(Long id, String pendencia, String situacao, String servico, Date dataAbertura, Integer nivel, Date prazo, String canalr) {
+    public Demanda(Long id, String pendencia, String servico, Date dataAbertura, Integer nivel, Date prazo, String canal, Set<Funcionario> funcionarios) {
         this.id = id;
         this.pendencia = pendencia;
-        this.situacao = situacao;
         this.servico = servico;
         this.dataAbertura = dataAbertura;
         this.nivel = nivel;
         this.prazo = prazo;
         this.canal = canal;
+        this.funcionarios = funcionarios;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Demanda demanda = (Demanda) o;
+        return Objects.equals(id, demanda.id) && Objects.equals(pendencia, demanda.pendencia);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, pendencia);
     }
 
     public Long getId() {
@@ -58,14 +72,6 @@ public class Demanda {
 
     public void setPendencia(String pendencia) {
         this.pendencia = pendencia;
-    }
-
-    public String getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
     }
 
     public String getServico() {
@@ -106,6 +112,14 @@ public class Demanda {
 
     public void setCanal(String canal) {
         this.canal = canal;
+    }
+
+    public Set<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(Set<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
     }
 
     /*
