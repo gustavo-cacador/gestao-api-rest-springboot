@@ -5,6 +5,7 @@ import com.gustavo.gestao_api_rest.entities.Setor;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.*;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
@@ -12,12 +13,31 @@ import java.util.Date;
 public class FuncionarioDTO {
 
     private Long id;
+
+    @Size(min = 3, max = 80, message = "Nome não pode ser vazio.")
+    @NotBlank(message = "O nome é obrigatório.")
     private String nome;
+
+    @Size(min = 11, max = 11, message = "CPF tem que conter 11 caracteres")
+    @NotBlank(message = "O CPF é obrigatório.")
     private String cpf;
+
+    @Size(min = 3, max = 250, message = "Endereço não pode ser vazio.")
+    @NotBlank(message = "O endereço é obrigatório.")
     private String endereco;
+
+    @NotNull(message = "A data de nascimento é obrigatória.")
+    @PastOrPresent(message = "A data de nascimento não pode estar no futuro.")
     private Date dataNascimento;
+
+    @Email(message = "O email pessoal deve ser válido.")
     private String emailPessoal;
+
+    @Email(message = "O email corporativo deve ser válido.")
     private String emailWorkspace;
+
+    @Size(min = 11, max = 11, message = "Telefone não pode ser vazio.")
+    @NotBlank(message = "O telefone é obrigatório.")
     private String telefone;
 
     public FuncionarioDTO() {
