@@ -13,6 +13,8 @@ Este projeto é um sistema de controle de funcionários, setores, demandas e equ
 ## Tecnologias Utilizadas
 - Java 17
 - Spring Boot 3.4.2
+- Spring Web
+- Validation
 - Spring Data JPA
 - H2 Database (para desenvolvimento)
 - Maven (gerenciamento de dependências)
@@ -24,6 +26,9 @@ Este projeto é um sistema de controle de funcionários, setores, demandas e equ
 - `repositories`: Interface `DemandaRepository`, `EquipamentoRepository`, `FuncionarioRepository` `SetorRepository` para operações de banco de dados
 - `services`: Classe `DemandaService`, `EquipamentoService`,  `FuncionarioService`, `SetorService` com a lógica de negócios
 - `controllers`: Classe `DemandaController`, `EquipamentoController`, `FuncionarioController`, `SetorController` que define os endpoints da API
+- `enums`: Contém a classe `DemandaStatus` para definir o status de cada demanda
+- `exceptions`: Para tratar exceções de serviço
+- `handlers`: Contém a classe para customizar a resposta de validação
 
 ## Como Executar
 1. Clone o repositório
@@ -58,19 +63,45 @@ Este projeto é um sistema de controle de funcionários, setores, demandas e equ
 
 ## Exemplo de Payload (JSON)
 ```
+Funcionário:
 {
-  "funcionario": "Gustavo Caçador",
-  "pendencia": "Implementando API do projeto Controle de Demandas",
-  "situacao": "Em andamento",
-  "servico": "TI",
-  "dataAbertura": "2024-12-21",
-  "nivel": 1,
-  "prazo": "2025-01-21",
-  "canal": "Postman",
-  "solicitante": "Gustavo",
-  "emailSolicitante": "gustavo@gmail.com"
+  "nome": "Gustavo Caçador",
+  "cpf": "12345678911",
+  "endereco": "Rua 1",
+  "dataNascimento": "2001-01-09",
+  "emailPessoal": "gustavo@gmail.com",
+  "emailWorkspace": "gustavoempresa@gmail.com,
+  "telefone": "27111111111"
 }
 ```
+```
+Demanda:
+{
+  "pendencia": "Implementar API RESTful",
+  "servico": "T.I",
+  "dataAbertura": "2025-02-11",
+  "nivel": "7",
+  "prazo": "2025-02-18",
+  "canal": "Interno"
+}
+```
+```
+Equipamento:
+{
+  "patrimonio": "1234",
+  "tipo": "Monitor",
+  "modelo": "AOC",
+  "descricao": "Monitor com defeito"
+}
+```
+```
+Setor:
+{
+  "nome": "T.I",
+  "descricao": "Setor destinado a tecnologia"
+}
+```
+
 
 ## Configuração do Banco de Dados
 O projeto utiliza H2 Database para desenvolvimento. As configurações podem ser encontradas em `src/main/resources/application.properties`.
