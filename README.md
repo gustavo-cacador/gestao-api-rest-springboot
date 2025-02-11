@@ -1,4 +1,4 @@
-# Sistema de Gestão de Demandas e Funcionários
+# Sistema de Gestão de Demandas, Funcionários
 
 ## Descrição
 Este projeto é um sistema de controle de funcionários, setores, demandas e equipamentos, desenvolvido em Java com Spring Boot. Ele oferece uma API REST para gerenciar demandas de funcionários e seus setores, gestão de equipamentos, permitindo criar, ler, atualizar e deletar registros de atividades, tarefas, funcionários, setores e equipamentos.
