@@ -23,7 +23,7 @@ public class EquipamentoService {
     @Transactional(readOnly = true)
     public EquipamentoDTO procurarPorId(Long id) {
         Equipamento equipamento = equipamentoRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Equipamento com id: " + id + ", não encontrado."));
+                () -> new ResourceNotFoundException("Equipamento não encontrado."));
         return new EquipamentoDTO(equipamento);
     }
 
@@ -51,18 +51,18 @@ public class EquipamentoService {
             entity = equipamentoRepository.save(entity);
             return new EquipamentoDTO(entity);
         } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Equipamento com id: " + id + ", não encontrado");
+            throw new ResourceNotFoundException("Equipamento não encontrado.");
         }
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void deletarEquipamento(Long id) {
         if (!equipamentoRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Equipamento com id: " + id + ", não encontrado");
+            throw new ResourceNotFoundException("Equipamento não existe.");
         } try {
             equipamentoRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Falha de integridade referencial");
+            throw new DatabaseException("Falha de integridade referencial.");
         }
         equipamentoRepository.deleteById(id);
     }

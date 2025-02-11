@@ -45,25 +45,25 @@ public class SetorService {
     }
 
     @Transactional
-    public SetorDTO atualizarFuncionario(Long id, SetorDTO dto) {
+    public SetorDTO atualizarSetor(Long id, SetorDTO dto) {
         try {
             Setor entity = setorRepository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = setorRepository.save(entity);
             return new SetorDTO(entity);
         } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Funcionário não encontrado.");
+            throw new ResourceNotFoundException("Setor não encontrado.");
         }
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
-    public void deletarFuncionario(Long id) {
+    public void deletarSetor(Long id) {
         if(!setorRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Funcionário não existe");
+            throw new ResourceNotFoundException("Setor não existe.");
         } try {
             setorRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Falha de integridade referencial");
+            throw new DatabaseException("Falha de integridade referencial.");
         }
         setorRepository.deleteById(id);
     }

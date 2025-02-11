@@ -60,11 +60,11 @@ public class FuncionarioService {
     @Transactional(propagation = Propagation.SUPPORTS)
     public void deletarFuncionario(Long id) {
         if(!funcionarioRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Funcionário não existe");
+            throw new ResourceNotFoundException("Funcionário não existe.");
         } try {
             funcionarioRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Falha de integridade referencial");
+            throw new DatabaseException("Falha de integridade referencial.");
         }
         funcionarioRepository.deleteById(id);
     }

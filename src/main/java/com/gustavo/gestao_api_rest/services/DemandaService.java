@@ -26,7 +26,7 @@ public class DemandaService {
     @Transactional(readOnly = true)
     public DemandaDTO procurarPorId(Long id) {
         Demanda demanda = demandaRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Setor não encontrado."));
+                () -> new ResourceNotFoundException("Demanda não encontrada."));
         return new DemandaDTO(demanda);
     }
 
@@ -39,7 +39,7 @@ public class DemandaService {
     }
 
     @Transactional
-    public DemandaDTO inserirSetor(DemandaDTO dto) {
+    public DemandaDTO inserirDemanda(DemandaDTO dto) {
         Demanda entity = new Demanda();
         copyDtoToEntity(dto, entity);
         entity = demandaRepository.save(entity);
@@ -47,7 +47,7 @@ public class DemandaService {
     }
 
     @Transactional
-    public DemandaDTO atualizarFuncionario(Long id, DemandaDTO dto) {
+    public DemandaDTO atualizarDemanda(Long id, DemandaDTO dto) {
         try {
             Demanda entity = demandaRepository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
@@ -59,13 +59,13 @@ public class DemandaService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
-    public void deletarFuncionario(Long id) {
+    public void deletarDemanda(Long id) {
         if(!demandaRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Demanda não existe");
+            throw new ResourceNotFoundException("Demanda não existe.");
         } try {
             demandaRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Falha de integridade referencial");
+            throw new DatabaseException("Falha de integridade referencial.");
         }
         demandaRepository.deleteById(id);
     }
