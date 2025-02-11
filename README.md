@@ -1,4 +1,4 @@
-# Sistema de Gestão de Demandas, Funcionários
+# Sistema de Gestão de Demandas, Equipamentos, Funcionários e Setores
 
 ## Descrição
 Este projeto é um sistema de controle de funcionários, setores, demandas e equipamentos, desenvolvido em Java com Spring Boot. Ele oferece uma API REST para gerenciar demandas de funcionários e seus setores, gestão de equipamentos, permitindo criar, ler, atualizar e deletar registros de atividades, tarefas, funcionários, setores e equipamentos.
@@ -104,7 +104,7 @@ Setor:
 
 
 ## Configuração do Banco de Dados
-O projeto utiliza H2 Database para desenvolvimento. As configurações podem ser encontradas em `src/main/resources/application.properties`.
+O projeto utiliza H2 Database para desenvolvimento. As configurações podem ser encontradas em `src/main/resources/application-test.properties`.
 
 ## Testes
 Os testes podem ser executados via Maven: `mvn test`
