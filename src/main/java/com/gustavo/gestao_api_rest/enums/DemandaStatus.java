@@ -1,4 +1,4 @@
-package com.gustavo.gestao_api_rest.entities;
+package com.gustavo.gestao_api_rest.enums;
 
 public enum DemandaStatus {
 
