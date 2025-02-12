@@ -36,28 +36,28 @@ Este projeto é um sistema de controle de funcionários, setores, demandas e equ
 3. Execute `mvn spring-boot:run`
 4. A aplicação estará disponível em `http://localhost:8080`
 
-## Endpoints da API
+## Endpoints da Demanda
 - POST `/demandas`: Criar uma nova demanda
 - GET `/demandas`: Listar todas as demandas
 - GET `/demandas/{id}`: Buscar uma demanda específica
 - PUT `/demandas/{id}`: Atualizar uma demanda existente
 - DELETE `/demandas/{id}`: Deletar uma demanda
   
-
+## Endpoints do Equipamento
 - POST `/equipamentos`: Criar um novo equipamento
 - GET `/equipamentos`: Listar todos os equipamentos
 - GET `/equipamentos/{id}`: Buscar um equipamento específico
 - PUT `/equipamentos/{id}`: Atualizar um equipamento existente
 - DELETE `/equipamentos/{id}`: Deletar um equipamento
 
-
+## Endpoints do Funcionario
 - POST `/funcionarios`: Criar um nov funcionario
 - GET `/funcionarios`: Listar todos os funcionarios
 - GET `/funcionarios/{id}`: Buscar um funcionario específico
 - PUT `/funcionarios/{id}`: Atualizar um funcionario existente
 - DELETE `/funcionarios/{id}`: Deletar um funcionario
 
-
+## Endpoints do Setor
 - POST `/setores`: Criar um novo setor
 - GET `/setores`: Listar todos os setores
 - GET `/setores/{id}`: Buscar um setor específico
