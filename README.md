@@ -42,6 +42,7 @@ Este projeto é um sistema de controle de funcionários, setores, demandas e equ
 - GET `/demandas/{id}`: Buscar uma demanda específica
 - PUT `/demandas/{id}`: Atualizar uma demanda existente
 - DELETE `/demandas/{id}`: Deletar uma demanda
+  
 
 - POST `/equipamentos`: Criar um novo equipamento
 - GET `/equipamentos`: Listar todos os equipamentos
@@ -49,11 +50,13 @@ Este projeto é um sistema de controle de funcionários, setores, demandas e equ
 - PUT `/equipamentos/{id}`: Atualizar um equipamento existente
 - DELETE `/equipamentos/{id}`: Deletar um equipamento
 
+
 - POST `/funcionarios`: Criar um nov funcionario
 - GET `/funcionarios`: Listar todos os funcionarios
 - GET `/funcionarios/{id}`: Buscar um funcionario específico
 - PUT `/funcionarios/{id}`: Atualizar um funcionario existente
 - DELETE `/funcionarios/{id}`: Deletar um funcionario
+
 
 - POST `/setores`: Criar um novo setor
 - GET `/setores`: Listar todos os setores
