@@ -4,8 +4,10 @@ import com.gustavo.gestao_api_rest.dto.DemandaDTO;
 import com.gustavo.gestao_api_rest.dto.FuncionarioDTO;
 import com.gustavo.gestao_api_rest.entities.Demanda;
 import com.gustavo.gestao_api_rest.entities.Funcionario;
+import com.gustavo.gestao_api_rest.entities.Setor;
 import com.gustavo.gestao_api_rest.repositories.DemandaRepository;
 import com.gustavo.gestao_api_rest.repositories.FuncionarioRepository;
+import com.gustavo.gestao_api_rest.repositories.SetorRepository;
 import com.gustavo.gestao_api_rest.services.exceptions.DatabaseException;
 import com.gustavo.gestao_api_rest.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,6 +28,9 @@ public class FuncionarioService {
     @Autowired
     public DemandaRepository demandaRepository;
 
+    @Autowired
+    public SetorRepository setorRepository;
+
     @Transactional(readOnly = true)
     public FuncionarioDTO procurarPorId(Long id) {
         Funcionario funcionario = funcionarioRepository.findById(id).orElseThrow(
@@ -43,15 +48,23 @@ public class FuncionarioService {
 
     @Transactional
     public FuncionarioDTO inserirFuncionario(FuncionarioDTO dto) {
+
         Funcionario entity = new Funcionario();
         copyDtoToEntity(dto, entity);
+
+        Setor setor = setorRepository.getReferenceById(dto.getSetorId());
 
         for(DemandaDTO demandaDTO : dto.getDemandas()) {
             Demanda demanda = demandaRepository.getReferenceById(demandaDTO.getId());
             entity.getDemandas().add(demanda);
         }
 
+        entity.setSetor(setor);
+
         entity = funcionarioRepository.save(entity);
+
+        entity = funcionarioRepository.save(entity);
+
         return new FuncionarioDTO(entity);
     }
 
