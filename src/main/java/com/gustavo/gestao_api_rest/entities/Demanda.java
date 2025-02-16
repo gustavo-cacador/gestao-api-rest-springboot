@@ -50,12 +50,12 @@ public class Demanda {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Demanda demanda = (Demanda) o;
-        return Objects.equals(id, demanda.id) && Objects.equals(pendencia, demanda.pendencia);
+        return Objects.equals(id, demanda.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, pendencia);
+        return Objects.hashCode(id);
     }
 
     public Long getId() {
@@ -118,26 +118,4 @@ public class Demanda {
         return funcionarios;
     }
 
-    public void setFuncionarios(Set<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
-    }
-
-    /*
-    public String getSolicitante() {
-        return solicitante;
-    }
-
-    public void setSolicitante(String solicitante) {
-        this.solicitante = solicitante;
-    }
-
-    public String getEmailSolicitante() {
-        return emailSolicitante;
-    }
-
-    public void setEmailSolicitante(String emailSolicitante) {
-        this.emailSolicitante = emailSolicitante;
-    }
-
-     */
     }
