@@ -43,7 +43,7 @@ public class Funcionario {
 
     }
 
-    public Funcionario(Long id, String nome, String cpf, String endereco, Date dataNascimento, String emailPessoal, String emailWorkspace, String telefone, Setor setor, List<Equipamento> equipamentos, Set<Demanda> demandas) {
+    public Funcionario(Long id, String nome, String cpf, String endereco, Date dataNascimento, String emailPessoal, String emailWorkspace, String telefone) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -52,9 +52,6 @@ public class Funcionario {
         this.emailPessoal = emailPessoal;
         this.emailWorkspace = emailWorkspace;
         this.telefone = telefone;
-        this.setor = setor;
-        this.equipamentos = equipamentos;
-        this.demandas = demandas;
     }
 
     @Override
