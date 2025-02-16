@@ -1,26 +1,30 @@
 package com.gustavo.gestao_api_rest.services;
 
+import com.gustavo.gestao_api_rest.dto.DemandaDTO;
 import com.gustavo.gestao_api_rest.dto.FuncionarioDTO;
+import com.gustavo.gestao_api_rest.entities.Demanda;
 import com.gustavo.gestao_api_rest.entities.Funcionario;
+import com.gustavo.gestao_api_rest.repositories.DemandaRepository;
 import com.gustavo.gestao_api_rest.repositories.FuncionarioRepository;
 import com.gustavo.gestao_api_rest.services.exceptions.DatabaseException;
 import com.gustavo.gestao_api_rest.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class FuncionarioService {
 
     @Autowired
     public FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    public DemandaRepository demandaRepository;
 
     @Transactional(readOnly = true)
     public FuncionarioDTO procurarPorId(Long id) {
@@ -41,6 +45,12 @@ public class FuncionarioService {
     public FuncionarioDTO inserirFuncionario(FuncionarioDTO dto) {
         Funcionario entity = new Funcionario();
         copyDtoToEntity(dto, entity);
+
+        for(DemandaDTO demandaDTO : dto.getDemandas()) {
+            Demanda demanda = demandaRepository.getReferenceById(demandaDTO.getId());
+            entity.getDemandas().add(demanda);
+        }
+
         entity = funcionarioRepository.save(entity);
         return new FuncionarioDTO(entity);
     }

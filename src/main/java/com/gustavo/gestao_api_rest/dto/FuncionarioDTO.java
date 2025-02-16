@@ -1,5 +1,6 @@
 package com.gustavo.gestao_api_rest.dto;
 
+import com.gustavo.gestao_api_rest.entities.Demanda;
 import com.gustavo.gestao_api_rest.entities.Funcionario;
 import com.gustavo.gestao_api_rest.entities.Setor;
 import jakarta.persistence.Column;
@@ -8,7 +9,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.*;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class FuncionarioDTO {
 
@@ -40,6 +43,8 @@ public class FuncionarioDTO {
     @NotBlank(message = "O telefone é obrigatório.")
     private String telefone;
 
+    private List<DemandaDTO> demandas = new ArrayList<>();
+
     public FuncionarioDTO() {
     }
 
@@ -63,6 +68,9 @@ public class FuncionarioDTO {
         emailPessoal = entity.getEmailPessoal();
         emailWorkspace = entity.getEmailWorkspace();
         telefone = entity.getTelefone();
+        for (Demanda demanda : entity.getDemandas()) {
+            demandas.add(new DemandaDTO(demanda));
+        }
     }
 
     public Long getId() {
@@ -95,6 +103,10 @@ public class FuncionarioDTO {
 
     public String getTelefone() {
         return telefone;
+    }
+
+    public List<DemandaDTO> getDemandas() {
+        return demandas;
     }
 }
 
