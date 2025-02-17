@@ -63,8 +63,6 @@ public class FuncionarioService {
 
         entity = funcionarioRepository.save(entity);
 
-        entity = funcionarioRepository.save(entity);
-
         return new FuncionarioDTO(entity);
     }
 
