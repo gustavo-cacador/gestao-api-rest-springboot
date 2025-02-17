@@ -2,7 +2,11 @@ package com.gustavo.gestao_api_rest.services;
 
 import com.gustavo.gestao_api_rest.dto.EquipamentoDTO;
 import com.gustavo.gestao_api_rest.entities.Equipamento;
+import com.gustavo.gestao_api_rest.entities.Funcionario;
+import com.gustavo.gestao_api_rest.entities.Setor;
 import com.gustavo.gestao_api_rest.repositories.EquipamentoRepository;
+import com.gustavo.gestao_api_rest.repositories.FuncionarioRepository;
+import com.gustavo.gestao_api_rest.repositories.SetorRepository;
 import com.gustavo.gestao_api_rest.services.exceptions.DatabaseException;
 import com.gustavo.gestao_api_rest.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,7 +22,13 @@ import java.util.List;
 public class EquipamentoService {
 
     @Autowired
-    public EquipamentoRepository equipamentoRepository;
+    private EquipamentoRepository equipamentoRepository;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private SetorRepository setorRepository;
 
     @Transactional(readOnly = true)
     public EquipamentoDTO procurarPorId(Long id) {
@@ -39,6 +49,14 @@ public class EquipamentoService {
     public EquipamentoDTO inserirEquipamento(EquipamentoDTO dto) {
         Equipamento entity = new Equipamento();
         copyDtoToEntity(dto, entity);
+
+        Funcionario funcionario = funcionarioRepository.getReferenceById(dto.getFuncionario().getId());
+
+        Setor setor = setorRepository.getReferenceById(dto.getSetor().getId());
+
+        entity.setFuncionario(funcionario);
+        entity.setSetor(setor);
+
         entity = equipamentoRepository.save(entity);
         return new EquipamentoDTO(entity);
     }

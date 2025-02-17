@@ -22,15 +22,21 @@ public class EquipamentoDTO {
 
     private String descricao;
 
+    private FuncionarioDTO funcionario;
+
+    private SetorDTO setor;
+
     public EquipamentoDTO() {
     }
 
-    public EquipamentoDTO(Long id, Integer patrimonio, String tipo, String modelo, String descricao) {
+    public EquipamentoDTO(Long id, Integer patrimonio, String tipo, String modelo, String descricao, FuncionarioDTO funcionario, SetorDTO setor) {
         this.id = id;
         this.patrimonio = patrimonio;
         this.tipo = tipo;
         this.modelo = modelo;
         this.descricao = descricao;
+        this.funcionario = funcionario;
+        this.setor = setor;
     }
 
     public EquipamentoDTO(Equipamento entity) {
@@ -39,6 +45,8 @@ public class EquipamentoDTO {
         tipo = entity.getTipo();
         modelo = entity.getModelo();
         descricao = entity.getDescricao();
+        funcionario = new FuncionarioDTO(entity.getFuncionario());
+        setor = new SetorDTO(entity.getSetor());
     }
 
     public Long getId() {
@@ -59,5 +67,13 @@ public class EquipamentoDTO {
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public FuncionarioDTO getFuncionario() {
+        return funcionario;
+    }
+
+    public SetorDTO getSetor() {
+        return setor;
     }
 }
