@@ -24,6 +24,12 @@ public class EquipamentoController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<List<EquipamentoDTO>> searchByName(@RequestParam(name = "tipo", defaultValue = "") String tipo) {
+        List<EquipamentoDTO> list = equipamentoService.searchByName(tipo);
+        return ResponseEntity.ok(list);
+    }
+
     @GetMapping
     public List<EquipamentoDTO> buscarTodos() {
         return equipamentoService.buscarTodos();

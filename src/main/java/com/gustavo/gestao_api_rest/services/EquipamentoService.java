@@ -27,6 +27,12 @@ public class EquipamentoService {
         return new EquipamentoDTO(equipamento);
     }
 
+    @Transactional
+    public List<EquipamentoDTO> searchByName(String tipo) {
+        List<Equipamento> result =equipamentoRepository.searchByName(tipo);
+        return result.stream().map(x -> new EquipamentoDTO(x)).toList();
+    }
+
     @Transactional(readOnly = true)
     public List<EquipamentoDTO> buscarTodos() {
         List<Equipamento> result = equipamentoRepository.findAll();
