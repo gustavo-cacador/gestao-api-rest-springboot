@@ -30,14 +30,12 @@ public class Equipamento {
 
     }
 
-    public Equipamento(Long id, Integer patrimonio, String tipo, String modelo, String descricao, Funcionario funcionario, Setor setor) {
+    public Equipamento(Long id, Integer patrimonio, String tipo, String modelo, String descricao) {
         this.id = id;
         this.patrimonio = patrimonio;
         this.tipo = tipo;
         this.modelo = modelo;
         this.descricao = descricao;
-        this.funcionario = funcionario;
-        this.setor = setor;
     }
 
     @Override
