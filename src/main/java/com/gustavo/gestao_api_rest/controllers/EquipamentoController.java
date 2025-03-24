@@ -1,10 +1,12 @@
 package com.gustavo.gestao_api_rest.controllers;
 
 import com.gustavo.gestao_api_rest.dto.EquipamentoDTO;
+import com.gustavo.gestao_api_rest.dto.EquipamentoMinDTO;
 import com.gustavo.gestao_api_rest.services.EquipamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,8 +27,8 @@ public class EquipamentoController {
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<List<EquipamentoDTO>> searchByName(@RequestParam(name = "tipo", defaultValue = "") String tipo) {
-        List<EquipamentoDTO> list = equipamentoService.searchByName(tipo);
+    public ResponseEntity<List<EquipamentoMinDTO>> searchByName(@RequestParam(name = "tipo", defaultValue = "") String tipo) {
+        List<EquipamentoMinDTO> list = equipamentoService.searchByName(tipo);
         return ResponseEntity.ok(list);
     }
 
@@ -35,6 +37,7 @@ public class EquipamentoController {
         return equipamentoService.buscarTodos();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<EquipamentoDTO> inserirEquipamento(@Valid @RequestBody EquipamentoDTO dto) {
         dto = equipamentoService.inserirEquipamento(dto);
@@ -43,12 +46,14 @@ public class EquipamentoController {
         return ResponseEntity.created(uri).body(dto);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<EquipamentoDTO> atualizarEquipamento(@PathVariable Long id, @Valid @RequestBody EquipamentoDTO dto) {
         dto = equipamentoService.atualizarEquipamento(id, dto);
         return ResponseEntity.ok(dto);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletarEquipamento(@PathVariable Long id) {
         equipamentoService.deletarEquipamento(id);

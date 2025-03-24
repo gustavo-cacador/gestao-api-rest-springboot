@@ -1,11 +1,10 @@
 package com.gustavo.gestao_api_rest.services;
 
 import com.gustavo.gestao_api_rest.dto.EquipamentoDTO;
+import com.gustavo.gestao_api_rest.dto.EquipamentoMinDTO;
 import com.gustavo.gestao_api_rest.entities.Equipamento;
-import com.gustavo.gestao_api_rest.entities.Funcionario;
 import com.gustavo.gestao_api_rest.entities.Setor;
 import com.gustavo.gestao_api_rest.repositories.EquipamentoRepository;
-import com.gustavo.gestao_api_rest.repositories.FuncionarioRepository;
 import com.gustavo.gestao_api_rest.repositories.SetorRepository;
 import com.gustavo.gestao_api_rest.services.exceptions.DatabaseException;
 import com.gustavo.gestao_api_rest.services.exceptions.ResourceNotFoundException;
@@ -25,9 +24,6 @@ public class EquipamentoService {
     private EquipamentoRepository equipamentoRepository;
 
     @Autowired
-    private FuncionarioRepository funcionarioRepository;
-
-    @Autowired
     private SetorRepository setorRepository;
 
     @Transactional(readOnly = true)
@@ -37,10 +33,10 @@ public class EquipamentoService {
         return new EquipamentoDTO(equipamento);
     }
 
-    @Transactional
-    public List<EquipamentoDTO> searchByName(String tipo) {
+    @Transactional(readOnly = true)
+    public List<EquipamentoMinDTO> searchByName(String tipo) {
         List<Equipamento> result =equipamentoRepository.searchByName(tipo);
-        return result.stream().map(x -> new EquipamentoDTO(x)).toList();
+        return result.stream().map(x -> new EquipamentoMinDTO(x)).toList();
     }
 
     @Transactional(readOnly = true)
@@ -56,15 +52,13 @@ public class EquipamentoService {
         Equipamento entity = new Equipamento();
         copyDtoToEntity(dto, entity);
 
-        Funcionario funcionario = funcionarioRepository.getReferenceById(dto.getFuncionario().getId());
-
         Setor setor = setorRepository.getReferenceById(dto.getSetor().getId());
 
-        entity.setFuncionario(funcionario);
         entity.setSetor(setor);
 
         entity = equipamentoRepository.save(entity);
         return new EquipamentoDTO(entity);
+
     }
 
     @Transactional
