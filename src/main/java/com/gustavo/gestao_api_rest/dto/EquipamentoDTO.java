@@ -30,7 +30,6 @@ public class EquipamentoDTO {
     @NotNull(message = "O setor eh obrigatório.")
     private SetorDTO setor;
 
-    @NotNull(message = "O funcionário eh obrigatório")
     private FuncionarioMinDTO funcionario;
 
     public EquipamentoDTO() {
@@ -51,8 +50,9 @@ public class EquipamentoDTO {
         modelo = entity.getModelo();
         descricao = entity.getDescricao();
         setor = (entity.getSetor() == null) ? null : new SetorDTO(entity.getSetor());
-        funcionario = (entity.getFuncionario() == null) ? null : new FuncionarioMinDTO(entity.getFuncionario());
-    }
+        if (entity.getFuncionario() != null) {
+            this.funcionario = new FuncionarioMinDTO(entity.getFuncionario());
+        }    }
 
     public Long getId() {
         return id;

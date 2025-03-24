@@ -58,11 +58,12 @@ public class EquipamentoService {
         copyDtoToEntity(dto, entity);
 
         Setor setor = setorRepository.getReferenceById(dto.getSetor().getId());
-
-        Funcionario funcionario = funcionarioRepository.getReferenceById(dto.getFuncionario().getId());
-
         entity.setSetor(setor);
-        entity.setFuncionario(funcionario);
+
+        if (dto.getFuncionario() != null && dto.getFuncionario().getId() != null) {
+            Funcionario funcionario = funcionarioRepository.getReferenceById(dto.getFuncionario().getId());
+            entity.setFuncionario(funcionario);
+        }
 
         entity = equipamentoRepository.save(entity);
         return new EquipamentoDTO(entity);
