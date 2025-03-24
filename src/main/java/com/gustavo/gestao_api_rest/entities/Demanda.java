@@ -28,6 +28,11 @@ public class Demanda {
     //private String solicitante; // Nome do funcionario que solicitou a task (pode ser um chef)
     //private String emailSolicitante; // Email do funcionario que solicitou a task
 
+    // Muitas Demandas para um Usuário
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Usuario cliente;
+
     @ManyToMany(mappedBy = "demandas")
     private Set<Funcionario> funcionarios = new HashSet<>();
 
@@ -118,4 +123,11 @@ public class Demanda {
         return funcionarios;
     }
 
+    public Usuario getCliente() {
+        return cliente;
     }
+
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
+    }
+}

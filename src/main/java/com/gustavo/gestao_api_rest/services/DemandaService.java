@@ -4,6 +4,7 @@ import com.gustavo.gestao_api_rest.dto.DemandaDTO;
 import com.gustavo.gestao_api_rest.dto.SetorDTO;
 import com.gustavo.gestao_api_rest.entities.Demanda;
 import com.gustavo.gestao_api_rest.entities.Setor;
+import com.gustavo.gestao_api_rest.entities.Usuario;
 import com.gustavo.gestao_api_rest.repositories.DemandaRepository;
 import com.gustavo.gestao_api_rest.repositories.SetorRepository;
 import com.gustavo.gestao_api_rest.services.exceptions.DatabaseException;
@@ -23,6 +24,7 @@ public class DemandaService {
     @Autowired
     public DemandaRepository demandaRepository;
 
+
     @Transactional(readOnly = true)
     public DemandaDTO procurarPorId(Long id) {
         Demanda demanda = demandaRepository.findById(id).orElseThrow(
@@ -40,6 +42,7 @@ public class DemandaService {
 
     @Transactional
     public DemandaDTO inserirDemanda(DemandaDTO dto) {
+
         Demanda entity = new Demanda();
         copyDtoToEntity(dto, entity);
         entity = demandaRepository.save(entity);

@@ -1,11 +1,15 @@
 package com.gustavo.gestao_api_rest.dto;
 
 import com.gustavo.gestao_api_rest.entities.Demanda;
+import com.gustavo.gestao_api_rest.entities.Funcionario;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DemandaDTO {
 
@@ -25,6 +29,9 @@ public class DemandaDTO {
 
     @NotBlank(message = "O tipo de canal é obrigatório.")
     private String canal;
+
+    @NotEmpty(message = "Deve ter pelo menos um funcionário")
+    private List<FuncionarioDTO> funcionarios = new ArrayList<>();
 
     public DemandaDTO() {
     }
