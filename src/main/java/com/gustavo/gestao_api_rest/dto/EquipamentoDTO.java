@@ -52,7 +52,8 @@ public class EquipamentoDTO {
         setor = (entity.getSetor() == null) ? null : new SetorDTO(entity.getSetor());
         if (entity.getFuncionario() != null) {
             this.funcionario = new FuncionarioMinDTO(entity.getFuncionario());
-        }    }
+        }
+    }
 
     public Long getId() {
         return id;
