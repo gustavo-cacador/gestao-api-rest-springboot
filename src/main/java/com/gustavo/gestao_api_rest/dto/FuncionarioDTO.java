@@ -43,14 +43,14 @@ public class FuncionarioDTO {
     @NotBlank(message = "O telefone é obrigatório.")
     private String telefone;
 
-    private Long setorId;
+    private SetorDTO setor;
 
     private List<DemandaDTO> demandas = new ArrayList<>();
 
     public FuncionarioDTO() {
     }
 
-    public FuncionarioDTO(Long id, String nome, String cpf, String endereco, Date dataNascimento, String emailPessoal, String emailWorkspace, String telefone, Long setorId) {
+    public FuncionarioDTO(Long id, String nome, String cpf, String endereco, Date dataNascimento, String emailPessoal, String emailWorkspace, String telefone) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -59,7 +59,6 @@ public class FuncionarioDTO {
         this.emailPessoal = emailPessoal;
         this.emailWorkspace = emailWorkspace;
         this.telefone = telefone;
-        this.setorId = setorId;
     }
 
     public FuncionarioDTO(Funcionario entity) {
@@ -71,7 +70,9 @@ public class FuncionarioDTO {
         emailPessoal = entity.getEmailPessoal();
         emailWorkspace = entity.getEmailWorkspace();
         telefone = entity.getTelefone();
-        setorId = entity.getSetor().getId();
+        if (entity.getSetor() != null) {
+            this.setor = new SetorDTO(entity.getSetor());
+        }
         for (Demanda demanda : entity.getDemandas()) {
             demandas.add(new DemandaDTO(demanda));
         }
@@ -109,12 +110,12 @@ public class FuncionarioDTO {
         return telefone;
     }
 
-    public Long getSetorId() {
-        return setorId;
-    }
-
     public List<DemandaDTO> getDemandas() {
         return demandas;
+    }
+
+    public SetorDTO getSetor() {
+        return setor;
     }
 }
 
