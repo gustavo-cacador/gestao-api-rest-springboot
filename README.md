@@ -10,7 +10,7 @@ Este projeto é um sistema de controle de funcionários, setores, demandas e equ
 - Atualizar informações de uma demanda, funcionário, setor e equipamento existente
 - Deletar uma demanda, funcionário, setor e equipamento
 
-## Tecnologias Utilizadas
+## 💻Tecnologias Utilizadas
 - Java 17
 - Spring Boot 3.4.2
 - Spring Web
