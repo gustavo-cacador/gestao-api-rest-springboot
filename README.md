@@ -1,6 +1,6 @@
-# Sistema de Gestão de Demandas, Equipamentos, Funcionários e Setores
+# 📋Sistema de Gestão de Demandas, Equipamentos, Funcionários e Setores
 
-## Descrição
+## 📖Descrição
 Este projeto é um sistema de controle de funcionários, setores, demandas e equipamentos, desenvolvido em Java com Spring Boot. Ele oferece uma API REST para gerenciar demandas de funcionários e seus setores, gestão de equipamentos, permitindo criar, ler, atualizar e deletar registros de atividades, tarefas, funcionários, setores e equipamentos.
 
 ## 💻Tecnologias Utilizadas
@@ -50,6 +50,7 @@ Este projeto é um sistema de controle de funcionários, setores, demandas e equ
 - POST `/equipamentos`: Criar um novo equipamento
 - GET `/equipamentos`: Listar todos os equipamentos
 - GET `/equipamentos/{id}`: Buscar um equipamento específico
+- GET `/equipamentos/buscar?tipo=nome`: Buscar um equipamento por nome
 - PUT `/equipamentos/{id}`: Atualizar um equipamento existente
 - DELETE `/equipamentos/{id}`: Deletar um equipamento
 
