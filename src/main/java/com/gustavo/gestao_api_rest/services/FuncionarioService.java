@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -53,29 +55,49 @@ public class FuncionarioService {
         copyDtoToEntity(dto, entity);
 
         Setor setor = setorRepository.getReferenceById(dto.getSetor().getId());
-        entity.setSetor(setor);
 
-        if (dto.getDemandas() != null && !dto.getDemandas().isEmpty()) {
-            for (DemandaDTO demandaDTO : dto.getDemandas()) {
-                Demanda demanda = demandaRepository.getReferenceById(demandaDTO.getId());
-                entity.getDemandas().add(demanda);
-            }
+        for(DemandaDTO demandaDTO : dto.getDemandas()) {
+            Demanda demanda = demandaRepository.getReferenceById(demandaDTO.getId());
+            entity.getDemandas().add(demanda);
         }
 
+        entity.setSetor(setor);
+
         entity = funcionarioRepository.save(entity);
+
         return new FuncionarioDTO(entity);
     }
 
     @Transactional
     public FuncionarioDTO atualizarFuncionario(Long id, FuncionarioDTO dto) {
-        try {
-            Funcionario entity = funcionarioRepository.getReferenceById(id);
-            copyDtoToEntity(dto, entity);
+        Funcionario entity = funcionarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado"));
+
+        copyDtoToEntity(dto, entity);
+
+        if (dto.getSetor() != null && dto.getSetor().getId() != null) {
+            Setor setor = setorRepository.findById(dto.getSetor().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Setor não encontrado"));
+            entity.setSetor(setor);
+        }
+
+        if (dto.getDemandas() != null && !dto.getDemandas().isEmpty()) {
+            List<Demanda> demandas = new ArrayList<>();
+            for (DemandaDTO demandaDTO : dto.getDemandas()) {
+                if (demandaDTO.getId() != null) {
+                    Demanda demanda = demandaRepository.findById(demandaDTO.getId())
+                            .orElseThrow(() -> new ResourceNotFoundException("Demanda não encontrada."));
+                    demandas.add(demanda);
+                }
+            }
+            entity.setDemandas(new HashSet<>(demandas));
+
             entity = funcionarioRepository.save(entity);
             return new FuncionarioDTO(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Funcionário não encontrado.");
         }
+
+
+        return new FuncionarioDTO(entity);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

@@ -149,4 +149,8 @@ public class Funcionario {
     public Set<Demanda> getDemandas() {
         return demandas;
     }
+
+    public void setDemandas(Set<Demanda> demandas) {
+        this.demandas = demandas;
+    }
 }

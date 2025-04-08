@@ -43,6 +43,7 @@ public class FuncionarioDTO {
     @NotBlank(message = "O telefone é obrigatório.")
     private String telefone;
 
+    @NotNull(message = "O setor eh obrigatório.")
     private SetorDTO setor;
 
     private List<DemandaDTO> demandas = new ArrayList<>();
@@ -70,9 +71,7 @@ public class FuncionarioDTO {
         emailPessoal = entity.getEmailPessoal();
         emailWorkspace = entity.getEmailWorkspace();
         telefone = entity.getTelefone();
-        if (entity.getSetor() != null) {
-            this.setor = new SetorDTO(entity.getSetor());
-        }
+        setor = (entity.getSetor() == null) ? null : new SetorDTO(entity.getSetor());
         for (Demanda demanda : entity.getDemandas()) {
             demandas.add(new DemandaDTO(demanda));
         }
@@ -110,12 +109,12 @@ public class FuncionarioDTO {
         return telefone;
     }
 
-    public List<DemandaDTO> getDemandas() {
-        return demandas;
-    }
-
     public SetorDTO getSetor() {
         return setor;
+    }
+
+    public List<DemandaDTO> getDemandas() {
+        return demandas;
     }
 }
 
