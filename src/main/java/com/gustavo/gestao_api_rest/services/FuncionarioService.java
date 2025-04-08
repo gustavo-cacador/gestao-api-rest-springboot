@@ -52,17 +52,17 @@ public class FuncionarioService {
         Funcionario entity = new Funcionario();
         copyDtoToEntity(dto, entity);
 
-        Setor setor = setorRepository.getReferenceById(dto.getSetorId());
-
-        for(DemandaDTO demandaDTO : dto.getDemandas()) {
-            Demanda demanda = demandaRepository.getReferenceById(demandaDTO.getId());
-            entity.getDemandas().add(demanda);
-        }
-
+        Setor setor = setorRepository.getReferenceById(dto.getSetor().getId());
         entity.setSetor(setor);
 
-        entity = funcionarioRepository.save(entity);
+        if (dto.getDemandas() != null && !dto.getDemandas().isEmpty()) {
+            for (DemandaDTO demandaDTO : dto.getDemandas()) {
+                Demanda demanda = demandaRepository.getReferenceById(demandaDTO.getId());
+                entity.getDemandas().add(demanda);
+            }
+        }
 
+        entity = funcionarioRepository.save(entity);
         return new FuncionarioDTO(entity);
     }
 

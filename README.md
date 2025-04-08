@@ -1,26 +1,27 @@
-# Sistema de Gestão de Demandas, Equipamentos, Funcionários e Setores
+# 📋Sistema de Gestão de Demandas, Equipamentos, Funcionários e Setores
 
-## Descrição
+## 📖Descrição
 Este projeto é um sistema de controle de funcionários, setores, demandas e equipamentos, desenvolvido em Java com Spring Boot. Ele oferece uma API REST para gerenciar demandas de funcionários e seus setores, gestão de equipamentos, permitindo criar, ler, atualizar e deletar registros de atividades, tarefas, funcionários, setores e equipamentos.
 
-## Funcionalidades
+## 💻Tecnologias Utilizadas
+- Java 17
+- Spring Boot 3.4.2
+- Spring Web
+- Spring Data JPA
+- Spring Security
+- Validation
+- H2 Database (para desenvolvimento)
+- Maven (gerenciamento de dependências)
+- REST API
+
+## 🚀Funcionalidades
 - Criar novas demandas, funcionários, setores e equipamentos
 - Listar todas as demandas, funcionários, setores e equipamentos
 - Buscar uma demanda, funcionário, setor e equipamento específico por ID
 - Atualizar informações de uma demanda, funcionário, setor e equipamento existente
 - Deletar uma demanda, funcionário, setor e equipamento
 
-## Tecnologias Utilizadas
-- Java 17
-- Spring Boot 3.4.2
-- Spring Web
-- Validation
-- Spring Data JPA
-- H2 Database (para desenvolvimento)
-- Maven (gerenciamento de dependências)
-- REST API
-
-## Estrutura do Projeto
+## 📁Estrutura do Projeto
 - `entities`: Contém as entidades `Demanda`, `Equipamento`, `Funcionario` e `Setor` que define a estrutura dos dados
 - `dto`: Contém os DTOs das entidades para transportar os dados
 - `repositories`: Interface `DemandaRepository`, `EquipamentoRepository`, `FuncionarioRepository` `SetorRepository` para operações de banco de dados
@@ -30,41 +31,44 @@ Este projeto é um sistema de controle de funcionários, setores, demandas e equ
 - `exceptions`: Para tratar exceções de serviço
 - `handlers`: Contém a classe para customizar a resposta de validação
 
-## Como Executar
+## ▶️Como Executar
 1. Clone o repositório
 2. Navegue até a pasta do projeto
 3. Execute `mvn spring-boot:run`
 4. A aplicação estará disponível em `http://localhost:8080`
 
-## Endpoints da Demanda
+## 📌Endpoints Principais
+
+## 🔧Demandas
 - POST `/demandas`: Criar uma nova demanda
 - GET `/demandas`: Listar todas as demandas
 - GET `/demandas/{id}`: Buscar uma demanda específica
 - PUT `/demandas/{id}`: Atualizar uma demanda existente
 - DELETE `/demandas/{id}`: Deletar uma demanda
   
-## Endpoints do Equipamento
+## 🛠️Equipamentos
 - POST `/equipamentos`: Criar um novo equipamento
 - GET `/equipamentos`: Listar todos os equipamentos
 - GET `/equipamentos/{id}`: Buscar um equipamento específico
+- GET `/equipamentos/buscar?tipo=nome`: Buscar um equipamento por nome
 - PUT `/equipamentos/{id}`: Atualizar um equipamento existente
 - DELETE `/equipamentos/{id}`: Deletar um equipamento
 
-## Endpoints do Funcionario
+## 💼Funcionários
 - POST `/funcionarios`: Criar um nov funcionario
 - GET `/funcionarios`: Listar todos os funcionarios
 - GET `/funcionarios/{id}`: Buscar um funcionario específico
 - PUT `/funcionarios/{id}`: Atualizar um funcionario existente
 - DELETE `/funcionarios/{id}`: Deletar um funcionario
 
-## Endpoints do Setor
+## 🏢Setores
 - POST `/setores`: Criar um novo setor
 - GET `/setores`: Listar todos os setores
 - GET `/setores/{id}`: Buscar um setor específico
 - PUT `/setores/{id}`: Atualizar um setor existente
 - DELETE `/setores/{id}`: Deletar um setor
 
-## Exemplo de Payload (JSON)
+## 📦Exemplo de Payload (JSON)
 ```
 Funcionário:
 {
@@ -106,10 +110,10 @@ Setor:
 ```
 
 
-## Configuração do Banco de Dados
+## 🛠️Configuração do Banco de Dados
 O projeto utiliza H2 Database para desenvolvimento. As configurações podem ser encontradas em `src/main/resources/application-test.properties`.
 
-## Testes
+## 🧪Testes
 Os testes podem ser executados via Maven: `mvn test`
 
 
