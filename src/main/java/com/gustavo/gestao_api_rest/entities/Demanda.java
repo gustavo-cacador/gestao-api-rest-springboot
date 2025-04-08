@@ -130,4 +130,8 @@ public class Demanda {
     public void setCliente(Usuario cliente) {
         this.cliente = cliente;
     }
+
+    public void setFuncionarios(Set<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
 }

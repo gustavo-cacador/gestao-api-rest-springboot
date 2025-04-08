@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DemandaDTO {
 
@@ -31,7 +32,7 @@ public class DemandaDTO {
     private String canal;
 
     @NotEmpty(message = "Deve ter pelo menos um funcionário")
-    private List<FuncionarioDTO> funcionarios = new ArrayList<>();
+    private List<FuncionarioMinDTO> funcionarios = new ArrayList<>();
 
     public DemandaDTO() {
     }
@@ -54,6 +55,10 @@ public class DemandaDTO {
         nivel = entity.getNivel();
         prazo = entity.getPrazo();
         canal = entity.getCanal();
+        funcionarios = entity.getFuncionarios()
+                .stream()
+                .map(FuncionarioMinDTO::new)
+                .collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -82,5 +87,9 @@ public class DemandaDTO {
 
     public String getCanal() {
         return canal;
+    }
+
+    public List<FuncionarioMinDTO> getFuncionarios() {
+        return funcionarios;
     }
 }

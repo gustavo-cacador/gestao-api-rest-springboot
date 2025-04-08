@@ -3,9 +3,11 @@ package com.gustavo.gestao_api_rest.services;
 import com.gustavo.gestao_api_rest.dto.DemandaDTO;
 import com.gustavo.gestao_api_rest.dto.SetorDTO;
 import com.gustavo.gestao_api_rest.entities.Demanda;
+import com.gustavo.gestao_api_rest.entities.Funcionario;
 import com.gustavo.gestao_api_rest.entities.Setor;
 import com.gustavo.gestao_api_rest.entities.Usuario;
 import com.gustavo.gestao_api_rest.repositories.DemandaRepository;
+import com.gustavo.gestao_api_rest.repositories.FuncionarioRepository;
 import com.gustavo.gestao_api_rest.repositories.SetorRepository;
 import com.gustavo.gestao_api_rest.services.exceptions.DatabaseException;
 import com.gustavo.gestao_api_rest.services.exceptions.ResourceNotFoundException;
@@ -22,7 +24,10 @@ import java.util.List;
 public class DemandaService {
 
     @Autowired
-    public DemandaRepository demandaRepository;
+    private DemandaRepository demandaRepository;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
 
 
     @Transactional(readOnly = true)
@@ -74,12 +79,23 @@ public class DemandaService {
     }
 
     private void copyDtoToEntity(DemandaDTO dto, Demanda entity) {
-        entity.setId(dto.getId());
         entity.setPendencia(dto.getPendencia());
         entity.setServico(dto.getServico());
         entity.setDataAbertura(dto.getDataAbertura());
         entity.setNivel(dto.getNivel());
         entity.setPrazo(dto.getPrazo());
         entity.setCanal(dto.getCanal());
+
+        if (dto.getFuncionarios() != null && !dto.getFuncionarios().isEmpty()) {
+            entity.getFuncionarios().clear();
+
+            dto.getFuncionarios().forEach(funcionarioDTO -> {
+                if (funcionarioDTO.getId() != null) {
+                    Funcionario funcionario = funcionarioRepository.findById(funcionarioDTO.getId())
+                            .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado."));
+                    entity.getFuncionarios().add(funcionario);
+                }
+            });
+        }
     }
 }
