@@ -71,14 +71,27 @@ public class EquipamentoService {
 
     @Transactional
     public EquipamentoDTO atualizarEquipamento(Long id, EquipamentoDTO dto) {
-        try {
-            Equipamento entity = equipamentoRepository.getReferenceById(id);
-            copyDtoToEntity(dto, entity);
-            entity = equipamentoRepository.save(entity);
-            return new EquipamentoDTO(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Equipamento não encontrado.");
+        Equipamento entity = equipamentoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Equipamento não encontrado."));
+
+        copyDtoToEntity(dto, entity);
+
+        if (dto.getSetor() != null && dto.getSetor().getId() != null) {
+            Setor setor = setorRepository.findById(dto.getSetor().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Setor não encontrado."));
+            entity.setSetor(setor);
         }
+
+        if (dto.getFuncionario() != null && dto.getFuncionario().getId() != null) {
+            Funcionario funcionario = funcionarioRepository.findById(dto.getFuncionario().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado."));
+            entity.setFuncionario(funcionario);
+        } else {
+            entity.setFuncionario(null);
+        }
+
+        entity = equipamentoRepository.save(entity);
+        return new EquipamentoDTO(entity);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
@@ -94,7 +107,6 @@ public class EquipamentoService {
     }
 
     private void copyDtoToEntity(EquipamentoDTO dto, Equipamento entity) {
-        entity.setId(dto.getId());
         entity.setPatrimonio(dto.getPatrimonio());
         entity.setTipo(dto.getTipo());
         entity.setModelo(dto.getModelo());
