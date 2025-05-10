@@ -20,18 +20,21 @@ public class EquipamentoController {
     @Autowired
     private EquipamentoService equipamentoService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<EquipamentoDTO> procurarPorId(@PathVariable Long id) {
         EquipamentoDTO dto = equipamentoService.procurarPorId(id);
         return ResponseEntity.ok(dto);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/buscar")
     public ResponseEntity<List<EquipamentoMinDTO>> searchByName(@RequestParam(name = "tipo", defaultValue = "") String tipo) {
         List<EquipamentoMinDTO> list = equipamentoService.searchByName(tipo);
         return ResponseEntity.ok(list);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public List<EquipamentoDTO> buscarTodos() {
         return equipamentoService.buscarTodos();

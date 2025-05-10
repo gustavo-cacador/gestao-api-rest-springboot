@@ -20,12 +20,14 @@ public class FuncionarioController {
     @Autowired
     private FuncionarioService funcionarioService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<FuncionarioDTO> procurarPorId(@PathVariable Long id) {
         FuncionarioDTO dto = funcionarioService.procurarPorId(id);
         return ResponseEntity.ok(dto);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public List<FuncionarioDTO> buscarTodos() {
         return funcionarioService.buscarTodos();
@@ -53,6 +55,4 @@ public class FuncionarioController {
         funcionarioService.deletarFuncionario(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }
